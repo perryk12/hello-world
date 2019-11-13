@@ -1,3 +1,5 @@
+// Katherine Perry Project 2
+
 #include <iostream>
 using std::cout; using std::endl; using std::cin;
 #include <algorithm>
@@ -13,19 +15,19 @@ using std::string;
 #include <iterator>
 
 // function that returns the integer character difference of 2 strings
-int calculate_diff(string a, string b) {
-    int min_l = static_cast<int>(std::min(a.length(), b.length()));
-    int diff = 0;
-    for(int i = 0; i < min_l; ++i) {
+int calculate_difference(string a, string b) {
+    int min_length = static_cast<int>(std::min(a.length(), b.length()));
+    int difference = 0;
+    for(int i = 0; i < min_length; ++i) {
         if(a[i] != b[i]) {
-            diff++;
+            difference++;
         }
     }
     // count length difference in character difference
     if(a.length() != b.length()) {
-        diff += static_cast<int>(abs(a.length() - b.length()));
+        difference += static_cast<int>(abs(a.length() - b.length()));
     }
-    return diff;
+    return difference;
 }
 
 int main() {
@@ -33,9 +35,9 @@ int main() {
     ifstream input("common_passwords.txt");
     string password;
     int difference;
-    vector<string> common;
+    vector<string> common_passwords;
     while(input >> password) {
-        common.push_back(password);
+        common_passwords.push_back(password);
     }
     // interact with user to get password
     cout << "Give me a password: ";
@@ -43,17 +45,17 @@ int main() {
     cout << "You provided a password of " << password << endl;
     // create a map of password vectors and their corresponding character differences
     cout << "The most similar passwords to " << password << " are:" << endl;
-    map<int,vector<string>> links;
-    for(string p : common) {
-        difference = calculate_diff(password,p);
-        links[difference].push_back(p);
+    map<int,vector<string>> linked_words;
+    for(string p : common_passwords) {
+        difference = calculate_difference(password, p);
+        linked_words[difference].push_back(p);
     }
     // print the most similar passwords based on incrementing the difference key
     // sort the corresponding string vector alphabetically first
     for(int i = 0, count = 0; i < 15 && count < 1; i++) {
-        if(links.count(i) == 1) {
-            sort(links[i].begin(), links[i].end());
-            for(auto itr = links[i].begin(); itr != links[i].end(); ++itr) {
+        if(linked_words.count(i) == 1) {
+            sort(linked_words[i].begin(), linked_words[i].end());
+            for(auto itr = linked_words[i].begin(); itr != linked_words[i].end(); ++itr) {
                 cout << *itr << ", ";
             }
             count++;
