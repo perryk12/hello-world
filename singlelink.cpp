@@ -50,9 +50,8 @@ int main() {
     SingleLink s;
     s.append_back(3);
     s.append_back(4);
-    
     std::cout << "Two Items: " << s << std::endl;
-     
+    s.~SingleLink();
     //delete s.head_;
     //delete s.tail_;
     SingleLink s2(10);
@@ -64,7 +63,7 @@ int main() {
     
     s2.del(3);
     std::cout << "Removed 3: " << s2 << std::endl;
-
+    s2.~SingleLink();
     /*
     SingleLink s3(56);
     s3.append_back(73);

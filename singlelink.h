@@ -35,6 +35,12 @@ public:
       head_=a;
       tail_=a;
   }
+  ~SingleLink(){
+      for(auto i = head_;i!=nullptr;i=i->next_){
+          head_ = head_->next_;
+          delete i;
+      }
+  }
   SingleLink(const SingleLink &);
   SingleLink& operator=(SingleLink);
   
